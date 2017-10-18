@@ -2,14 +2,17 @@
  * Main store function
  */
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+
 import DevTools from './modules/App/components/DevTools';
 import rootReducer from './reducers';
+import rootSaga from './sagas';
 
 export function configureStore(initialState = {}) {
+  const sagaMiddleware = createSagaMiddleware();
   // Middleware and store enhancers
   const enhancers = [
-    applyMiddleware(thunk),
+    applyMiddleware(sagaMiddleware),
   ];
 
   if (process.env.CLIENT && process.env.NODE_ENV === 'development') {
@@ -19,6 +22,7 @@ export function configureStore(initialState = {}) {
 
   const store = createStore(rootReducer, initialState, compose(...enhancers));
 
+  sagaMiddleware.run(rootSaga);
   // For hot reloading reducers
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

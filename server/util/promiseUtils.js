@@ -7,11 +7,9 @@ export function sequence(items, consumer) {
   const runner = () => {
     const item = items.shift();
     if (item) {
-      return consumer(item)
-        .then((result) => {
-          results.push(result);
-        })
-        .then(runner);
+      const result = consumer(item);
+      results.push(result);
+      return runner();
     }
 
     return Promise.resolve(results);

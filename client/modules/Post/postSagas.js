@@ -2,9 +2,12 @@ import { takeEvery, call, put, all, fork } from 'redux-saga/effects';
 
 import callApi from '../../util/apiCaller';
 import {
-  ADD_POST,
-  ADD_POSTS,
-  DELETE_POST,
+  addPost,
+  addPosts,
+  deletePost,
+} from './PostActions';
+
+import {
   ADD_POST_REQUEST,
   FETCH_POST_REQUEST,
   FETCH_POSTS_REQUEST,
@@ -13,18 +16,14 @@ import {
 
 function* addPostRequest({ post }) {
   try {
-    yield call(callApi, 'posts', 'post', {
+    const receivedData = yield call(callApi, 'posts', 'post', {
       post: {
         name: post.name,
         title: post.title,
         content: post.content,
       },
     });
-
-    yield put({
-      type: ADD_POST,
-      post,
-    });
+    yield put(addPost(receivedData.post));
   } catch (e) {
     throw e;
   }
@@ -34,10 +33,7 @@ function* fetchPostsRequest() {
   try {
     const data = yield call(callApi, 'posts');
 
-    yield put({
-      type: ADD_POSTS,
-      posts: data.posts,
-    });
+    yield put(addPosts(data.posts));
   } catch (e) {
     throw e;
   }
@@ -47,10 +43,7 @@ function* fetchPostRequest({ cuid }) {
   try {
     const post = yield call(callApi, `posts/${cuid}`);
 
-    yield put({
-      type: ADD_POST,
-      post,
-    });
+    yield put(addPost(post));
   } catch (e) {
     throw e;
   }
@@ -59,10 +52,7 @@ function* fetchPostRequest({ cuid }) {
 function* deletePostRequest({ cuid }) {
   try {
     yield call(callApi, `posts/${cuid}`, 'delete');
-    yield put({
-      type: DELETE_POST,
-      cuid,
-    });
+    yield put(deletePost(cuid));
   } catch (e) {
     throw e;
   }

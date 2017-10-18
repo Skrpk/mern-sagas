@@ -37,7 +37,7 @@ test.serial('Should send correct data when queried against a cuid', async t => {
   t.plan(2);
 
   const post = new Post({ name: 'Foo', title: 'bar', slug: 'bar', cuid: 'f34gb2bh24b24b2', content: 'Hello Mern says Foo' });
-  post.save();
+  await post.save();
 
   const res = await request(app)
     .get('/api/posts/f34gb2bh24b24b2')
@@ -65,7 +65,7 @@ test.serial('Should correctly delete a post', async t => {
   t.plan(2);
 
   const post = new Post({ name: 'Foo', title: 'bar', slug: 'bar', cuid: 'f34gb2bh24b24b2', content: 'Hello Mern says Foo' });
-  post.save();
+  await post.save();
 
   const res = await request(app)
     .delete(`/api/posts/${post.cuid}`)
@@ -76,4 +76,3 @@ test.serial('Should correctly delete a post', async t => {
   const queriedPost = await Post.findOne({ cuid: post.cuid }).exec();
   t.is(queriedPost, null);
 });
-

@@ -5,12 +5,14 @@ import sinon from 'sinon';
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { App } from '../App';
 import styles from '../App.css';
 import { intlShape } from 'react-intl';
 import { intl } from '../../../util/react-intl-test-helper';
 import { toggleAddPost } from '../AppActions';
 import routes from '../../../routes';
+import { configureStore } from '../../../store';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -23,7 +25,6 @@ const props = {
   dispatch,
   intl: intlProp,
   route,
-  store: {},
 };
 
 test('renders properly', t => {
@@ -43,7 +44,9 @@ test('calls componentDidMount', t => {
   sinon.spy(App.prototype, 'componentDidMount');
   mount(
     <MemoryRouter>
-      <App {...props} />
+      <Provider store={configureStore()}>
+        <App {...props} />
+      </Provider>
     </MemoryRouter>,
     {
       context: {
@@ -66,7 +69,7 @@ test('calls componentDidMount', t => {
     },
   );
 
-  t.truthy(App.prototype.componentDidMount.calledOnce);
+  t.truthy(App.prototype.componentDidMount.calledTwice);
   App.prototype.componentDidMount.restore();
 });
 

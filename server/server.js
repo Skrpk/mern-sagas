@@ -96,12 +96,12 @@ const renderFullPage = (html, initialState) => {
   `;
 };
 
-const renderError = err => {
-  const softTab = '&#32;&#32;&#32;&#32;';
-  const errTrace = process.env.NODE_ENV !== 'production' ?
-    `:<br><br><pre style="color:red">${softTab}${err.stack.replace(/\n/g, `<br>${softTab}`)}</pre>` : '';
-  return renderFullPage(`Server Error${errTrace}`, {});
-};
+// const renderError = err => {
+//   const softTab = '&#32;&#32;&#32;&#32;';
+//   const errTrace = process.env.NODE_ENV !== 'production' ?
+//     `:<br><br><pre style="color:red">${softTab}${err.stack.replace(/\n/g, `<br>${softTab}`)}</pre>` : '';
+//   return renderFullPage(`Server Error${errTrace}`, {});
+// };
 
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
@@ -113,11 +113,10 @@ app.use((req, res, next) => {
     branch.map(elem => elem.route.component),
     branch.map(elem => elem.match.params),
   ).then(() => {
-    let context = {};
     const initialView = renderToString(
       <Provider store={store}>
         <IntlWrapper>
-          <StaticRouter location={req.url} context={context}>
+          <StaticRouter location={req.url} context={branch}>
             {renderRoutes(routes)}
           </StaticRouter>
         </IntlWrapper>

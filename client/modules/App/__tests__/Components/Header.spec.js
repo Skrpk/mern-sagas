@@ -1,11 +1,13 @@
 import React from 'react';
 import test from 'ava';
 import sinon from 'sinon';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { FormattedMessage } from 'react-intl';
 import { Header } from '../../components/Header/Header';
 import { intl } from '../../../../util/react-intl-test-helper';
 
+Enzyme.configure({ adapter: new Adapter() });
 const intlProp = { ...intl, enabledLanguages: ['en', 'fr'] };
 
 test('renders the header properly', t => {

@@ -1,6 +1,4 @@
 /* eslint-disable global-require */
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 
 import App from './modules/App/App';
 import PostListPage from './modules/Post/pages/PostListPage/PostListPage';

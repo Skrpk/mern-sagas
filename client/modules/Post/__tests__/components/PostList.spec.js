@@ -1,7 +1,10 @@
 import React from 'react';
 import test from 'ava';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import PostList from '../../components/PostList';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const posts = [
   { name: 'Prashant', title: 'Hello Mern', slug: 'hello-mern', cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" },

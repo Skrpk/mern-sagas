@@ -2,12 +2,17 @@ import React from 'react';
 import test from 'ava';
 import sinon from 'sinon';
 import PostListItem from '../../components/PostListItem/PostListItem';
+import { BrowserRouter } from 'react-router-dom';
 import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
 
 const post = { name: 'Prashant', title: 'Hello Mern', slug: 'hello-mern', cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" };
 const props = {
   post,
   onDelete: () => {},
+  router: { route: {
+    location: {},
+  },
+  },
 };
 
 test('renders properly', t => {
@@ -23,9 +28,10 @@ test('renders properly', t => {
 
 test('has correct props', t => {
   const wrapper = mountWithIntl(
-    <PostListItem {...props} />
+    <BrowserRouter {...props}>
+      <PostListItem {...props} />
+    </BrowserRouter>
   );
-
   t.deepEqual(wrapper.prop('post'), props.post);
   t.is(wrapper.prop('onClick'), props.onClick);
   t.is(wrapper.prop('onDelete'), props.onDelete);

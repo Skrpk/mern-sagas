@@ -11,6 +11,8 @@ export function Header(props, context) {
     lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>
   );
 
+  const renderAddPostButton = context.router.isActive ? context.router.isActive() :
+                                context.router.route.location.pathname === '/';
   return (
     <div className={styles.header}>
       <div className={styles['language-switcher']}>
@@ -24,7 +26,7 @@ export function Header(props, context) {
           <Link to="/" ><FormattedMessage id="siteTitle" /></Link>
         </h1>
         {
-          context.router.route.location.pathname === '/'
+          renderAddPostButton
             ? <a className={styles['add-post-button']} href="#" onClick={props.toggleAddPost}><FormattedMessage id="addPost" /></a>
             : null
         }

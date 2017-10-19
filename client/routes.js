@@ -1,8 +1,8 @@
 /* eslint-disable global-require */
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-import App from './modules/App/App';
+import { Switch, Route } from 'react-router-dom';
 
+import App from './modules/App/App';
 import PostListPage from './modules/Post/pages/PostListPage/PostListPage';
 import PostDetailPage from './modules/Post/pages/PostDetailPage/PostDetailPage';
 
@@ -23,27 +23,18 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 }
 
-// react-router setup with code-splitting
-// More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute
-      component={PostListPage}
-      // getComponent={(nextState, cb) => {
-      //   require.ensure([], require => {
-      //     cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
-      //   });
-      // }}
-    />
-    <Route
-      path="/posts/:slug-:cuid"
-      component={PostDetailPage}
-      // getComponent={(nextState, cb) => {
-      //   require.ensure([], require => {
-      //     debugger
-      //     cb(null, require('./modules/Post/pages/PostDetailPage/PostDetailPage').default);
-      //   });
-      // }}
-    />
-  </Route>
-);
+const routes = [
+  { component: App,
+    routes: [
+      { path: '/',
+        exact: true,
+        component: PostListPage,
+      },
+      { path: '/posts/:cuid',
+        component: PostDetailPage,
+      },
+    ],
+  },
+];
+
+export default routes;

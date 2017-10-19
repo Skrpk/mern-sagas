@@ -1,11 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { renderRoutes } from 'react-router-config';
 // Import Style
 import styles from './App.css';
 
 // Import Components
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -53,9 +54,9 @@ export class App extends Component {
             intl={this.props.intl}
             toggleAddPost={this.toggleAddPostSection}
           />
-          <div className={styles.container}>
-            {this.props.children}
-          </div>
+          <main className={styles.container}>
+            {renderRoutes(this.props.route.routes)}
+          </main>
           <Footer />
         </div>
       </div>
@@ -64,7 +65,7 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  children: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
 };

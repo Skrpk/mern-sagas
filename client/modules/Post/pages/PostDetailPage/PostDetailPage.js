@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 
 // Import Style
@@ -33,7 +34,7 @@ PostDetailPage.need = [params => {
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
   return {
-    post: getPost(state, props.params.cuid),
+    post: getPost(state, props.match.params.cuid),
   };
 }
 

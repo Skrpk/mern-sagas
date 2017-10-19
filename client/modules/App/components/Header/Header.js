@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 // Import Style
@@ -23,7 +24,7 @@ export function Header(props, context) {
           <Link to="/" ><FormattedMessage id="siteTitle" /></Link>
         </h1>
         {
-          context.router.isActive('/', true)
+          context.router.route.location.pathname === '/'
             ? <a className={styles['add-post-button']} href="#" onClick={props.toggleAddPost}><FormattedMessage id="addPost" /></a>
             : null
         }
@@ -33,7 +34,7 @@ export function Header(props, context) {
 }
 
 Header.contextTypes = {
-  router: React.PropTypes.object,
+  router: PropTypes.object,
 };
 
 Header.propTypes = {

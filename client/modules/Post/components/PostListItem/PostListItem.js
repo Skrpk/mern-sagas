@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 // Import Style
@@ -9,7 +10,7 @@ function PostListItem(props) {
   return (
     <div className={styles['single-post']}>
       <h3 className={styles['post-title']}>
-        <Link to={`/posts/${props.post.slug}-${props.post.cuid}`} >
+        <Link to={`/posts/${props.post.cuid}`} >
           {props.post.title}
         </Link>
       </h3>

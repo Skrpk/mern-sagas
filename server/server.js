@@ -26,8 +26,9 @@ import { configureStore } from '../client/store';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
-import Helmet from 'react-helmet';
+import { StaticRouter } from 'react-router-dom';
+import { matchRoutes, renderRoutes } from 'react-router-config';
+import { Helmet } from 'react-helmet';
 
 // Import required modules
 import routes from '../client/routes';
@@ -104,39 +105,65 @@ const renderError = err => {
 
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
-  match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
-    if (err) {
-      return res.status(500).end(renderError(err));
-    }
+  const store = configureStore();
+  const branch = matchRoutes(routes, req.url);
 
-    if (redirectLocation) {
-      return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    }
+  return fetchComponentData(
+    store,
+    branch.map(elem => elem.route.component),
+    branch.map(elem => elem.match.params),
+  ).then(() => {
+    let context = {};
+    const initialView = renderToString(
+      <Provider store={store}>
+        <IntlWrapper>
+          <StaticRouter location={req.url} context={context}>
+            {renderRoutes(routes)}
+          </StaticRouter>
+        </IntlWrapper>
+      </Provider>
+    );
+    const finalState = store.getState();
 
-    if (!renderProps) {
-      return next();
-    }
+    res
+      .set('Content-Type', 'text/html')
+      .status(200)
+      .end(renderFullPage(initialView, finalState));
+  })
+  .catch((error) => next(error));
 
-    const store = configureStore();
-
-    return fetchComponentData(store, renderProps.components, renderProps.params)
-      .then(() => {
-        const initialView = renderToString(
-          <Provider store={store}>
-            <IntlWrapper>
-              <RouterContext {...renderProps} />
-            </IntlWrapper>
-          </Provider>
-        );
-        const finalState = store.getState();
-
-        res
-          .set('Content-Type', 'text/html')
-          .status(200)
-          .end(renderFullPage(initialView, finalState));
-      })
-      .catch((error) => next(error));
-  });
+  // matchRoutes(routes, req.url, (err, redirectLocation, renderProps) => {
+  //   if (err) {
+  //     return res.status(500).end(renderError(err));
+  //   }
+  //
+  //   if (redirectLocation) {
+  //     return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+  //   }
+  //
+  //   if (!renderProps) {
+  //     return next();
+  //   }
+  //
+  //
+  //   return fetchComponentData(store, renderProps.components, renderProps.params)
+  //     .then(() => {
+  //       const initialView = renderToString(
+  //         <Provider store={store}>
+  //           <IntlWrapper>
+  //             <RouterContext {...renderProps} />
+  //           </IntlWrapper>
+  //         </Provider>
+  //       );
+  //       const finalState = store.getState();
+  //
+  //       res
+  //         .set('Content-Type', 'text/html')
+  //         .status(200)
+  //         .end(renderFullPage(initialView, finalState));
+  //     })
+  //     .catch((error) => next(error));
+  // });
 });
 
 // start app

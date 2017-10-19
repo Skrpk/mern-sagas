@@ -2,8 +2,10 @@
  * Root Component
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 import IntlWrapper from './modules/Intl/IntlWrapper';
 
 // Import Routes
@@ -16,14 +18,14 @@ export default function App(props) {
   return (
     <Provider store={props.store}>
       <IntlWrapper>
-        <Router history={browserHistory}>
-          {routes}
-        </Router>
+        <BrowserRouter>
+          {renderRoutes(routes)}
+        </BrowserRouter>
       </IntlWrapper>
     </Provider>
   );
 }
 
 App.propTypes = {
-  store: React.PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
 };

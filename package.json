@@ -31,6 +31,8 @@
   "author": "Prashant Abhishek <prashant.abhishek7g@gmail.com>, Mayank Chandola <imayankchd@gmail.com>, Sandeep Panda <sandeep@hashnode.com>, Syed Fazle Rahman <fazle@hashnode.com>, Alkshendra Maurya <alkshendra@hashnode.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/react": "^16.0.15",
+    "@types/react-dom": "^16.0.2",
     "babel-core": "^6.9.1",
     "body-parser": "^1.15.1",
     "compression": "^1.6.2",
@@ -57,6 +59,7 @@
   },
   "devDependencies": {
     "ava": "^0.15.2",
+    "awesome-typescript-loader": "^3.2.3",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-webpack-loaders": "^0.7.0",
@@ -105,8 +108,10 @@
     "redux-devtools-log-monitor": "^1.0.11",
     "rimraf": "^2.5.2",
     "sinon": "^1.17.4",
+    "source-map-loader": "^0.2.2",
     "style-loader": "^0.13.1",
     "supertest": "^1.2.0",
+    "typescript": "^2.5.3",
     "url-loader": "^0.5.7",
     "webpack": "2.1.0-beta.8",
     "webpack-dev-middleware": "^1.6.1",

@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 
 // Import Style
+// tslint:disable-next-line
 import styles from '../../components/PostListItem/PostListItem.css';
+import { State } from '../../../../reducers';
 
 // Import Actions
 import { fetchPost } from '../../PostActions';
@@ -13,7 +14,18 @@ import { fetchPost } from '../../PostActions';
 // Import Selectors
 import { getPost } from '../../PostReducer';
 
-export function PostDetailPage(props) {
+interface Props {
+  post: {
+    name: string;
+    title: string;
+    content: string;
+    slug: string;
+    cuid: string;
+  };
+}
+
+// tslint:disable-next-line
+export const PostDetailPage: React<Props, {}> = (props) => {
   return (
     <div>
       <Helmet title={props.post.title} />
@@ -24,28 +36,18 @@ export function PostDetailPage(props) {
       </div>
     </div>
   );
-}
+};
 
-// Actions required to provide data for this component to render in sever side.
-PostDetailPage.need = [params => {
+// Actions required to provide data for this component to render in server side.
+PostDetailPage.need = [(params: object) => {
   return fetchPost(params.cuid);
 }];
 
 // Retrieve data from store as props
-function mapStateToProps(state, props) {
+function mapStateToProps(state: State, props: object) {
   return {
     post: getPost(state, props.match.params.cuid),
   };
 }
-
-PostDetailPage.propTypes = {
-  post: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default connect(mapStateToProps)(PostDetailPage);

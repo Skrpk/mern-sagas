@@ -1,38 +1,50 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// tslint:disable-next-line
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 // Import Style
+// tslint:disable-next-line
 import styles from './App.css';
+import { State } from '../../reducers';
 
 // Import Components
 import { Helmet } from 'react-helmet';
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-
 // Import Actions
 import { toggleAddPost } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
 
-export class App extends Component {
+interface AppProps {
+  dispatch(action: object): () => void;
+  route: object;
+  intl: object;
+}
+
+interface AppState {
+  isMounted: boolean;
+}
+
+export class App extends React.Component<AppProps, AppState> {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
   }
 
   componentDidMount() {
-    this.setState({isMounted: true}); // eslint-disable-line
+    this.setState({ isMounted: true }); // eslint-disable-line
   }
 
   toggleAddPostSection = () => {
     this.props.dispatch(toggleAddPost());
-  };
+  }
 
   render() {
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
+        {this.state.isMounted && !window.devToolsExtension &&
+        process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
             title="MERN Starter - Blog App"
@@ -64,14 +76,8 @@ export class App extends Component {
   }
 }
 
-App.propTypes = {
-  route: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired,
-};
-
 // Retrieve data from store as props
-function mapStateToProps(store) {
+function mapStateToProps(store: State) {
   return {
     intl: store.intl,
   };

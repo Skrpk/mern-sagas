@@ -12,7 +12,7 @@ module.exports = {
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
-      './client/index.js',
+      './dist/index.js',
     ],
     vendor: [
       'react',
@@ -27,7 +27,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
     modules: [
       'client',
       'node_modules',
@@ -36,6 +36,10 @@ module.exports = {
 
   module: {
     loaders: [
+      {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader"
+      },
       {
         test: /\.css$/,
         exclude: /node_modules/,
@@ -57,7 +61,10 @@ module.exports = {
       },
     ],
   },
-
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM"
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({

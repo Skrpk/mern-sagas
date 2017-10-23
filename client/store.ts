@@ -1,11 +1,11 @@
 /**
  * Main store function
  */
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose, Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import DevTools from './modules/App/components/DevTools';
-import rootReducer from './reducers';
+import rootReducer, { State } from './reducers';
 import rootSaga from './sagas';
 
 export function configureStore(initialState = {}) {
@@ -20,7 +20,7 @@ export function configureStore(initialState = {}) {
     enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
   }
 
-  const store = createStore(rootReducer, initialState, compose(...enhancers));
+  const store: Store<State> = createStore(rootReducer, initialState, compose(...enhancers));
 
   sagaMiddleware.run(rootSaga);
   // For hot reloading reducers

@@ -1,10 +1,10 @@
 /**
  * Client entry point
  */
-import React from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './App';
+import { App } from './App';
 import { configureStore } from './store';
 
 // Initialize store
@@ -15,7 +15,7 @@ render(
   <AppContainer>
     <App store={store} />
   </AppContainer>,
-  mountApp
+  mountApp,
 );
 
 // For hot reloading of react components
@@ -23,12 +23,12 @@ if (module.hot) {
   module.hot.accept('./App', () => {
     // If you use Webpack 2 in ES modules mode, you can
     // use <App /> here rather than require() a <NextApp />.
-    const NextApp = require('./App').default; // eslint-disable-line global-require
+    const NextApp = require('./App'); // eslint-disable-line global-require
     render(
       <AppContainer>
         <NextApp store={store} />
       </AppContainer>,
-      mountApp
+      mountApp,
     );
   });
 }

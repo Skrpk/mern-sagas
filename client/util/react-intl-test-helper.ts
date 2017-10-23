@@ -5,7 +5,7 @@
  * English-locale intl context around them.
  */
 
-import React from 'react';
+import * as React from 'react';
 import { IntlProvider, intlShape } from 'react-intl';
 import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -15,21 +15,22 @@ Enzyme.configure({ adapter: new Adapter() });
 const messages = require('../../Intl/localizationData/en');
 
 // Create the IntlProvider to retrieve context for wrapping around.
+// tslint:disable-next-line
 const intlProvider = new IntlProvider({ locale: 'en', messages }, {});
 export const { intl } = intlProvider.getChildContext();
 
 /**
  * When using React-Intl `injectIntl` on components, props.intl is required.
  */
-const nodeWithIntlProp = node => {
+const nodeWithIntlProp = (node: object) => {
   return React.cloneElement(node, { intl });
 };
 
-export const shallowWithIntl = node => {
+export const shallowWithIntl = (node: object) => {
   return shallow(nodeWithIntlProp(node), { context: { intl } });
 };
 
-export const mountWithIntl = node => {
+export const mountWithIntl = (node: object) => {
   return mount(nodeWithIntlProp(node), {
     context: { intl },
     childContextTypes: { intl: intlShape },

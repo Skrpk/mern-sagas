@@ -1,9 +1,11 @@
 import { ADD_POST, ADD_POSTS, DELETE_POST } from './constants';
-
+import { Post } from './model';
 // Initial State
-const initialState = { data: [] };
+const createInitialState = (): Post => ({
+  data: [],
+});
 
-const PostReducer = (state = initialState, action) => {
+const PostReducer = (state = createInitialState(), action) => {
   switch (action.type) {
     case ADD_POST :
       return {
@@ -28,10 +30,11 @@ const PostReducer = (state = initialState, action) => {
 /* Selectors */
 
 // Get all posts
-export const getPosts = state => state.posts.data;
+export const getPosts = (state: object) => state.posts.data;
 
 // Get post by cuid
-export const getPost = (state, cuid) => state.posts.data.filter(post => post.cuid === cuid)[0];
+export const getPost = (state: object, cuid: string) =>
+                      state.posts.data.filter(post => post.cuid === cuid)[0];
 
 // Export Reducer
 export default PostReducer;

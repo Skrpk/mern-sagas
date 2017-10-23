@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// tslint:disable-next-line
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 // Import Components
@@ -14,21 +14,33 @@ import { toggleAddPost } from '../../../App/AppActions';
 import { getShowAddPost } from '../../../App/AppReducer';
 import { getPosts } from '../../PostReducer';
 
-class PostListPage extends Component {
+interface Props {
+  posts: object[];
+  showAddPost: boolean;
+  dispatch(action: object): () => void;
+}
+
+interface Context {
+  router: object;
+}
+
+class PostListPage extends React.Component<Props, {}> {
+  context: Context;
+
   componentDidMount() {
     this.props.dispatch(fetchPosts());
   }
 
-  handleDeletePost = post => {
+  handleDeletePost = (post) => {
     if (confirm('Do you want to delete this post')) { // eslint-disable-line
       this.props.dispatch(deletePostRequest(post));
     }
-  };
+  }
 
   handleAddPost = (name, title, content) => {
     this.props.dispatch(toggleAddPost());
     this.props.dispatch(addPostRequest({ name, title, content }));
-  };
+  }
 
   render() {
     return (
@@ -50,16 +62,6 @@ function mapStateToProps(state) {
     posts: getPosts(state),
   };
 }
-
-PostListPage.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-  })).isRequired,
-  showAddPost: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
 
 PostListPage.contextTypes = {
   router: PropTypes.object,

@@ -8,28 +8,30 @@ import {
   DELETE_POST_REQUEST,
 } from './constants';
 
-export function addPost(post) {
+import { Post } from './PostModel';
+
+export function addPost(post: Post) {
   return {
     type: ADD_POST,
     post,
   };
 }
 
-export function addPosts(posts) {
+export function addPosts(posts: Post[]) {
   return {
     type: ADD_POSTS,
     posts,
   };
 }
 
-export function deletePost(cuid) {
+export function deletePost(cuid: string) {
   return {
     type: DELETE_POST,
     cuid,
   };
 }
 
-export function addPostRequest(post) {
+export function addPostRequest(post: Post) {
   return {
     type: ADD_POST_REQUEST,
     post,
@@ -42,14 +44,14 @@ export function fetchPosts() {
   };
 }
 
-export function fetchPost(cuid) {
+export function fetchPost(cuid: string) {
   return {
     type: FETCH_POST_REQUEST,
     cuid,
   };
 }
 
-export function deletePostRequest(cuid) {
+export function deletePostRequest(cuid: string) {
   return {
     type: DELETE_POST_REQUEST,
     cuid,

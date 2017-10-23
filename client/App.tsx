@@ -1,8 +1,7 @@
 /**
  * Root Component
  */
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
@@ -14,7 +13,11 @@ import routes from './routes';
 // Base stylesheet
 require('./main.css');
 
-export default function App(props) {
+interface Props {
+  store: object;
+}
+
+export const App: React.SFC<Props> = (props) => {
   return (
     <Provider store={props.store}>
       <IntlWrapper>
@@ -24,8 +27,4 @@ export default function App(props) {
       </IntlWrapper>
     </Provider>
   );
-}
-
-App.propTypes = {
-  store: PropTypes.object.isRequired,
 };

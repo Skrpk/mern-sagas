@@ -63,8 +63,4 @@ function mapStateToProps(state) {
   };
 }
 
-PostListPage.contextTypes = {
-  router: PropTypes.object,
-};
-
 export default connect(mapStateToProps)(PostListPage);

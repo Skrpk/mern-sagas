@@ -31,6 +31,7 @@ module.exports = {
     modules: [
       'client',
       'node_modules',
+      'dist'
     ],
   },
 

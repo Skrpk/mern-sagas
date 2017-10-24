@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 // Import Style
-import styles from './PostCreateWidget.css';
+const styles = require('./PostCreateWidget.css');
 
 interface Props {
   addPost(name: string, title: string, content: string): () => void;

@@ -55,7 +55,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
-app.use(Express.static(path.resolve(__dirname, '../dist/client')));
+app.use(Express.static(path.resolve(__dirname, '../dist/')));
 app.use('/api', posts);
 
 // Render Initial HTML
@@ -113,15 +113,17 @@ app.use((req, res, next) => {
     branch.map(elem => elem.route.component),
     branch.map(elem => elem.match.params),
   ).then(() => {
+    let context = {};
     const initialView = renderToString(
       <Provider store={store}>
         <IntlWrapper>
-          <StaticRouter location={req.url} context={branch}>
+          <StaticRouter location={req.url} context={context}>
             {renderRoutes(routes)}
           </StaticRouter>
         </IntlWrapper>
       </Provider>
     );
+
     const finalState = store.getState();
 
     res

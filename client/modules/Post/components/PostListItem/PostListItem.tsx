@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 // Import Style
-import styles from './PostListItem.css';
+const styles = require('./PostListItem.css');
 
 interface Props {
   posts: {

@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+const fetch = require('isomorphic-fetch');
 import Config from '../../server/config';
 
 export const API_URL = (typeof window === 'undefined' || process.env.NODE_ENV === 'test') ?

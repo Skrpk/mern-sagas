@@ -3,8 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 // Import Style
-// tslint:disable-next-line
-import styles from './App.css';
+const styles = require('./App.css');
 import { State } from '../../reducers';
 
 // Import Components

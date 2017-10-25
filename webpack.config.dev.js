@@ -3,6 +3,7 @@ var cssnext = require('postcss-cssnext');
 var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
 
+console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
 
@@ -12,7 +13,7 @@ module.exports = {
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
-      './dist/index.js',
+      './client/index.tsx',
     ],
     vendor: [
       'react',
@@ -61,10 +62,6 @@ module.exports = {
         loader: 'json-loader',
       },
     ],
-  },
-  externals: {
-    "react": "React",
-    "react-dom": "ReactDOM"
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

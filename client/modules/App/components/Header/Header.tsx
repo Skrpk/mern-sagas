@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
@@ -9,10 +10,6 @@ interface HeaderProps {
   toggleAddPost(): () => void;
   switchLanguage(lang: string): () => void;
   intl: object;
-}
-
-interface HeaderContext {
-  router: object;
 }
 
 export class Header extends React.Component<HeaderProps, HeaderContext> {
@@ -59,6 +56,10 @@ export class Header extends React.Component<HeaderProps, HeaderContext> {
     );
   }
 }
+
+Header.contextTypes = {
+  router: PropTypes.object,
+};
 // tslint:disable-next-line
 // export const Header: React.SFC<HeaderProps, {}> = (props, context) => {
 //

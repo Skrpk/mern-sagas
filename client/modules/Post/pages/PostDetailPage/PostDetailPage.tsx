@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 // Import Style
 // tslint:disable-next-line
-import styles from '../../components/PostListItem/PostListItem.css';
+const styles = require('../../components/PostListItem/PostListItem.css');
 import { State } from '../../../../reducers';
 
 // Import Actions

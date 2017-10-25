@@ -14,7 +14,7 @@ import {
   DELETE_POST_REQUEST,
 } from './constants';
 
-function* addPostRequest({ post: object }) {
+function* addPostRequest({ post }) {
   try {
     const receivedData: object = yield call(apiCaller, 'posts', 'post', {
       post: {
@@ -23,6 +23,7 @@ function* addPostRequest({ post: object }) {
         content: post.content,
       },
     });
+
     yield put(addPost(receivedData.post));
   } catch (e) {
     throw e;
@@ -39,7 +40,7 @@ function* fetchPostsRequest() {
   }
 }
 
-function* fetchPostRequest({ cuid: string }) {
+function* fetchPostRequest({ cuid }) {
   try {
     const post: object = yield call(apiCaller, `posts/${cuid}`);
 
@@ -49,7 +50,7 @@ function* fetchPostRequest({ cuid: string }) {
   }
 }
 
-function* deletePostRequest({ cuid: string }) {
+function* deletePostRequest({ cuid }) {
   try {
     yield call(apiCaller, `posts/${cuid}`, 'delete');
     yield put(deletePost(cuid));

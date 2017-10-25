@@ -14,7 +14,7 @@ import routes from './routes';
 require('./main.css');
 
 interface Props {
-  store: object;
+  store: any;
 }
 
 export const App: React.SFC<Props> = (props) => {

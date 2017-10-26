@@ -7,7 +7,7 @@ const createInitialState = (): App => ({
   showAddPost: false,
 });
 
-const AppReducer = (state = createInitialState(), action) => {
+const AppReducer = (state = createInitialState(), action: { type: string }) => {
   switch (action.type) {
     case TOGGLE_ADD_POST:
       return {
@@ -22,7 +22,7 @@ const AppReducer = (state = createInitialState(), action) => {
 /* Selectors */
 
 // Get showAddPost
-export const getShowAddPost = (state: boolean) => state.app.showAddPost;
+export const getShowAddPost = (state: any): boolean => state.app.showAddPost;
 
 // Export Reducer
 export default AppReducer;

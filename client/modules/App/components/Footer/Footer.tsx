@@ -5,9 +5,9 @@ import { FormattedMessage } from 'react-intl';
 const styles = require('./Footer.css');
 
 // Import Images
-import bg from '../../header-bk.png';
+const bg = require('../../header-bk.png');
 
-export const Footer: React.SFC<> = () => {
+export const Footer: React.SFC<any> = () => {
   return (
     <div style={{ background: `#FFF url(${bg}) center` }} className={styles.footer}>
       <p>&copy; 2016 &middot; Hashnode &middot; LinearBytes Inc.</p>

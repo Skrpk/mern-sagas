@@ -1,3 +1,3 @@
 export * from './modules/App/AppModel';
-export * from './modules/App/IntsModel';
-export * from './modules/App/PostModel';
+export * from './modules/Intl/IntlModel';
+export * from './modules/Post/PostModel';

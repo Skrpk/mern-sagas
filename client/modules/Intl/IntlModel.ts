@@ -1,4 +1,4 @@
 export interface Intl {
-  locale: string;
-  enabledLanguages: string[];
+  locale?: string;
+  enabledLanguages?: string[];
 }

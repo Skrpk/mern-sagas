@@ -16,8 +16,8 @@ import { toggleAddPost } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
 
 interface AppProps {
-  dispatch(action: object): () => void;
-  route: object;
+  dispatch(action: object): void;
+  route: any;
   intl: object;
 }
 
@@ -26,7 +26,7 @@ interface AppState {
 }
 
 export class App extends React.Component<AppProps, AppState> {
-  constructor(props) {
+  constructor(props: AppProps) {
     super(props);
     this.state = { isMounted: false };
   }
@@ -82,4 +82,4 @@ function mapStateToProps(store: State) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, null)(App);

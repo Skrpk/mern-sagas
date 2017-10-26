@@ -3,7 +3,6 @@ var cssnext = require('postcss-cssnext');
 var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
 
-console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
 

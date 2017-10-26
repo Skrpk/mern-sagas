@@ -3,16 +3,21 @@ import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
+import { Intl } from '../../../Intl/IntlModel';
 // Import Style
 const styles = require('./Header.css');
 
 interface HeaderProps {
-  toggleAddPost(): () => void;
-  switchLanguage(lang: string): () => void;
-  intl: object;
+  toggleAddPost(): void;
+  switchLanguage(lang: string): void;
+  intl: Intl;
 }
 
-export class Header extends React.Component<HeaderProps, HeaderContext> {
+export class Header extends React.Component<HeaderProps> {
+  static contextTypes = {
+    router: PropTypes.object,
+  };
+
   renderLangNodes = (): object[] => {
     const { props } = this;
     return props.intl.enabledLanguages.map(
@@ -57,9 +62,6 @@ export class Header extends React.Component<HeaderProps, HeaderContext> {
   }
 }
 
-Header.contextTypes = {
-  router: PropTypes.object,
-};
 // tslint:disable-next-line
 // export const Header: React.SFC<HeaderProps, {}> = (props, context) => {
 //

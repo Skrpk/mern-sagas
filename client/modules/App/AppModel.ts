@@ -1,3 +1,3 @@
 export interface App {
-  showAddPost: bool;
+  showAddPost: boolean;
 }

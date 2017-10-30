@@ -8,7 +8,7 @@ import {
   DELETE_POST_REQUEST,
 } from './constants';
 
-import { Post } from './PostModel';
+import { PostReducerInit, Post } from './PostModel';
 
 export function addPost(post: Post) {
   return {
@@ -17,7 +17,7 @@ export function addPost(post: Post) {
   };
 }
 
-export function addPosts(posts: Post[]) {
+export function addPosts(posts: PostReducerInit[]) {
   return {
     type: ADD_POSTS,
     posts,
@@ -31,7 +31,7 @@ export function deletePost(cuid: string) {
   };
 }
 
-export function addPostRequest(post: Post) {
+export function addPostRequest(post: { name: string, title: string, content: string }) {
   return {
     type: ADD_POST_REQUEST,
     post,

@@ -10,12 +10,15 @@ import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget
 import { addPostRequest, fetchPosts, deletePostRequest } from '../../PostActions';
 import { toggleAddPost } from '../../../App/AppActions';
 
+import { Post } from '../../PostModel';
+import { State } from '../../../../reducers';
+
 // Import Selectors
 import { getShowAddPost } from '../../../App/AppReducer';
 import { getPosts } from '../../PostReducer';
 
 interface Props {
-  posts: object[];
+  posts: Post[];
   showAddPost: boolean;
   dispatch(action: object): () => void;
 }
@@ -25,19 +28,21 @@ interface Context {
 }
 
 class PostListPage extends React.Component<Props, {}> {
+  static need = [() => { return fetchPosts(); }];
+
   context: Context;
 
   componentDidMount() {
     this.props.dispatch(fetchPosts());
   }
 
-  handleDeletePost = (post) => {
+  handleDeletePost = (post: Post) => {
     if (confirm('Do you want to delete this post')) { // eslint-disable-line
-      this.props.dispatch(deletePostRequest(post));
+      this.props.dispatch(deletePostRequest(post.cuid));
     }
   }
 
-  handleAddPost = (name, title, content) => {
+  handleAddPost = (name: string, title: string, content: string) => {
     this.props.dispatch(toggleAddPost());
     this.props.dispatch(addPostRequest({ name, title, content }));
   }
@@ -45,22 +50,19 @@ class PostListPage extends React.Component<Props, {}> {
   render() {
     return (
       <div>
-        <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
+        <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} intl />
         <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
       </div>
     );
   }
 }
 
-// Actions required to provide data for this component to render in sever side.
-PostListPage.need = [() => { return fetchPosts(); }];
-
 // Retrieve data from store as props
-function mapStateToProps(state) {
+function mapStateToProps(state: State) {
   return {
     showAddPost: getShowAddPost(state),
     posts: getPosts(state),
   };
 }
 
-export default connect(mapStateToProps)(PostListPage);
+export default connect(mapStateToProps, null)(PostListPage);

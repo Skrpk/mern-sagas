@@ -1,5 +1,7 @@
 import { takeEvery, call, put, all, fork } from 'redux-saga/effects';
 
+import { Post } from './PostModel';
+
 import apiCaller from '../../util/apiCaller';
 import {
   addPost,
@@ -14,9 +16,13 @@ import {
   DELETE_POST_REQUEST,
 } from './constants';
 
-function* addPostRequest({ post }) {
+function* addPostRequest(
+  { post }: {
+    type: string;
+    post: { name: string, title: string, content: string },
+  }) {
   try {
-    const receivedData: object = yield call(apiCaller, 'posts', 'post', {
+    const receivedData: any = yield call(apiCaller, 'posts', 'post', {
       post: {
         name: post.name,
         title: post.title,
@@ -32,7 +38,7 @@ function* addPostRequest({ post }) {
 
 function* fetchPostsRequest() {
   try {
-    const data: object = yield call(apiCaller, 'posts');
+    const data: any = yield call(apiCaller, 'posts');
 
     yield put(addPosts(data.posts));
   } catch (e) {
@@ -40,9 +46,12 @@ function* fetchPostsRequest() {
   }
 }
 
-function* fetchPostRequest({ cuid }) {
+function* fetchPostRequest({ cuid }: {
+  type: string;
+  cuid: string;
+}) {
   try {
-    const post: object = yield call(apiCaller, `posts/${cuid}`);
+    const post: Post = yield call(apiCaller, `posts/${cuid}`);
 
     yield put(addPost(post));
   } catch (e) {
@@ -50,7 +59,10 @@ function* fetchPostRequest({ cuid }) {
   }
 }
 
-function* deletePostRequest({ cuid }) {
+function* deletePostRequest({ cuid }: {
+  type: string;
+  cuid: string;
+}) {
   try {
     yield call(apiCaller, `posts/${cuid}`, 'delete');
     yield put(deletePost(cuid));

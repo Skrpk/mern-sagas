@@ -9,7 +9,7 @@ const createIntialState = (): Intl => ({
   ...(localizationData[initLocale] || {}),
 });
 
-const IntlReducer = (state = createIntialState(), action) => {
+const IntlReducer = (state = createIntialState(), action: { type: string }) => {
   switch (action.type) {
     case SWITCH_LANGUAGE: {
       const { type, ...actionWithoutType } = action;

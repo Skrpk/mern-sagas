@@ -1,24 +1,25 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 
 // Import Style
 const styles = require('./PostCreateWidget.css');
 
 interface Props {
-  addPost(name: string, title: string, content: string): () => void;
+  addPost(name: string, title: string, content: string): void;
   showAddPost: boolean;
-  intl: intlShape;
+  intl: any;
 }
 
 export class PostCreateWidget extends React.Component<Props, {}> {
-  addPost: void = () => {
-    const nameRef = this.refs.name;
-    const titleRef = this.refs.title;
-    const contentRef = this.refs.content;
-    if (nameRef.value && titleRef.value && contentRef.value) {
-      this.props.addPost(nameRef.value, titleRef.value, contentRef.value);
-      nameRef.value = titleRef.value = contentRef.value = '';
+  private nameInput: HTMLInputElement;
+  private titleInput: HTMLInputElement;
+  private contentInput: HTMLTextAreaElement;
+
+  addPost = (): void => {
+    const { nameInput, titleInput, contentInput } = this;
+    if (nameInput.value && titleInput.value && contentInput.value) {
+      this.props.addPost(nameInput.value, titleInput.value, contentInput.value);
+      nameInput.value = titleInput.value = contentInput.value = '';
     }
   }
 
@@ -31,17 +32,17 @@ export class PostCreateWidget extends React.Component<Props, {}> {
           <input
             placeholder={this.props.intl.messages.authorName}
             className={styles['form-field']}
-            ref="name"
+            ref={(input) => { this.nameInput = input; }}
           />
           <input
             placeholder={this.props.intl.messages.postTitle}
             className={styles['form-field']}
-            ref="title"
+            ref={(input) => { this.titleInput = input; }}
           />
           <textarea
             placeholder={this.props.intl.messages.postContent}
             className={styles['form-field']}
-            ref="content"
+            ref={(input) => { this.contentInput = input; }}
           />
           <a
             className={styles['post-submit-button']}

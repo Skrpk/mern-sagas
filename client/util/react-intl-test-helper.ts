@@ -7,9 +7,10 @@
 
 import * as React from 'react';
 import { IntlProvider, intlShape } from 'react-intl';
-import Enzyme, { mount, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 
+const { mount, shallow } = Enzyme;
 Enzyme.configure({ adapter: new Adapter() });
 // You can pass your messages to the IntlProvider. Optional: remove if unneeded.
 const messages = require('../../Intl/localizationData/en');
@@ -22,7 +23,7 @@ export const { intl } = intlProvider.getChildContext();
 /**
  * When using React-Intl `injectIntl` on components, props.intl is required.
  */
-const nodeWithIntlProp = (node: object) => {
+const nodeWithIntlProp = (node: any) => {
   return React.cloneElement(node, { intl });
 };
 

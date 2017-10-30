@@ -6,7 +6,7 @@ import PostDetailPage from './modules/Post/pages/PostDetailPage/PostDetailPage';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
-  require.ensure = function requireModule(deps, callback) {
+  require.ensure = function requireModule(deps: any, callback: any ) {
     callback(require);
   };
 }

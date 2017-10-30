@@ -20,7 +20,7 @@ export function configureStore(initialState = {}) {
     enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
   }
 
-  const store: Store<State> = createStore(rootReducer, initialState, compose(...enhancers));
+  const store: Store<{}> = createStore(rootReducer, initialState, compose(...enhancers));
 
   sagaMiddleware.run(rootSaga);
   // For hot reloading reducers

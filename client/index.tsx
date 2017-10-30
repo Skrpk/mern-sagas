@@ -12,7 +12,6 @@ declare global {
     interface Window {
       __INITIAL_STATE__: any;
       devToolsExtension: any;
-      navigator: object;
     }
 }
 

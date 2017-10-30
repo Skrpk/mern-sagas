@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
@@ -7,14 +6,14 @@ import { FormattedMessage } from 'react-intl';
 const styles = require('./PostListItem.css');
 
 interface Props {
-  posts: {
+  post: {
     name: string;
     title: string;
     content: string;
     slug: string;
     cuid: string;
-  }[];
-  onDelete: () => void;
+  };
+  onDelete(): void;
 }
 
 const PostListItem: React.SFC<Props> = (props) => {

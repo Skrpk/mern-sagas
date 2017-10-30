@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 const fetch = require('isomorphic-fetch');
 import Config from '../../server/config';
 
@@ -6,14 +5,14 @@ export const API_URL = (typeof window === 'undefined' || process.env.NODE_ENV ==
   process.env.BASE_URL || (`http://localhost:${process.env.PORT || Config.port}/api`) :
   '/api';
 
-export default function callApi(endpoint: string, method = 'get', body: object) {
+export default function callApi(endpoint: string, method: string = 'get', body?: any): any {
   return fetch(`${API_URL}/${endpoint}`, {
-    headers: { 'content-type': 'application/json' },
     method,
+    headers: { 'content-type': 'application/json' },
     body: JSON.stringify(body),
   })
-  .then(response => response.json().then(json => ({ json, response })))
-  .then(({ json, response }) => {
+  .then((response: any) => response.json().then((json: any) => ({ json, response })))
+  .then(({ json, response }: any) => {
     if (!response.ok) {
       return Promise.reject(json);
     }
@@ -21,7 +20,7 @@ export default function callApi(endpoint: string, method = 'get', body: object) 
     return json;
   })
   .then(
-    response => response,
-    error => error,
+    (response: any) => response,
+    (error: any) => error,
   );
 }

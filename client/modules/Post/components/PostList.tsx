@@ -2,27 +2,23 @@ import * as React from 'react';
 // Import Components
 import PostListItem from './PostListItem/PostListItem';
 
+import { Post } from '../PostModel';
+
 interface Props {
-  posts: {
-    name: string;
-    title: string;
-    content: string;
-    slug: string;
-    cuid: string;
-  }[];
-  handleDeletePost(cuid: string): () => void;
+  posts: Post[];
+  handleDeletePost(post: Post): void;
 }
 
 // tslint:disable
-const PostList:React.SFC<Props, {}> = (props) => {
+const PostList:React.SFC<Props> = (props) => {
   return (
     <div className="listView">
       {
         props.posts.map(post => (
           <PostListItem
-            post={ post}
-            key={ post.cuid}
-            onDelete={() => props.handleDeletePost(post.cuid)}
+            post={post}
+            key={post.cuid}
+            onDelete={() => props.handleDeletePost(post)}
           />
         ))
       }

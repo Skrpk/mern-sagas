@@ -1,18 +1,18 @@
-import Express from 'express';
-import compression from 'compression';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import path from 'path';
-import IntlWrapper from '../dist/modules/Intl/IntlWrapper';
+import * as Express from 'express';
+import * as compression from 'compression';
+import * as mongoose from 'mongoose';
+import * as bodyParser from 'body-parser';
+import * as path from 'path';
+import IntlWrapper from '../client/modules/Intl/IntlWrapper';
 
 // Webpack Requirements
-import webpack from 'webpack';
-import config from '../webpack.config.dev';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
+import * as webpack from 'webpack';
+import * as config from '../webpack.config.dev';
+import * as webpackDevMiddleware from 'webpack-dev-middleware';
+import * as webpackHotMiddleware from 'webpack-hot-middleware';
 
 // Initialize the Express App
-const app = new Express();
+const app = Express();
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
@@ -22,16 +22,16 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // React And Redux Setup
-import { configureStore } from '../dist/store';
+import { configureStore } from '../client/store';
 import { Provider } from 'react-redux';
-import React from 'react';
+import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { Helmet } from 'react-helmet';
 
 // Import required modules
-import routes from '../dist/routes';
+import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import posts from './routes/post.routes';
 import dummyData from './dummyData';
@@ -55,7 +55,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
-app.use(Express.static(path.resolve(__dirname, '../dist/')));
+app.use(Express.static(path.resolve(__dirname, '../client/')));
 app.use('/api', posts);
 
 // Render Initial HTML

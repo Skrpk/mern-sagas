@@ -4,8 +4,8 @@ var ExternalsPlugin = require('webpack-externals-plugin');
 
 module.exports = {
 
-  entry: path.resolve(__dirname, 'server/server.js'),
-
+  entry: path.resolve(__dirname, 'server/server.ts'),
+  target: 'node',
   output: {
     path: __dirname + '/dist/',
     filename: 'server.bundle.js',
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
     modules: [
       'client',
       'node_modules',
@@ -48,6 +48,10 @@ module.exports = {
           ]
         },
       }, {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader"
+      },
+      {
         test: /\.json$/,
         loader: 'json-loader',
       },

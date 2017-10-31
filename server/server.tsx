@@ -14,13 +14,6 @@ import * as webpackHotMiddleware from 'webpack-hot-middleware';
 // Initialize the Express App
 const app = Express();
 
-// Run Webpack dev server in development mode
-if (process.env.NODE_ENV === 'development') {
-  const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
-  app.use(webpackHotMiddleware(compiler));
-}
-
 // React And Redux Setup
 import { configureStore } from '../client/store';
 import { Provider } from 'react-redux';
@@ -38,7 +31,7 @@ import dummyData from './dummyData';
 import serverConfig from './config';
 
 // Set native promises as mongoose promise
-mongoose.Promise = global.Promise;
+require('mongoose').Promise = global.Promise;
 
 // MongoDB Connection
 mongoose.connect(serverConfig.mongoURL, (error) => {
@@ -59,7 +52,7 @@ app.use(Express.static(path.resolve(__dirname, '../client/')));
 app.use('/api', posts);
 
 // Render Initial HTML
-const renderFullPage = (html, initialState) => {
+const renderFullPage = (html: string, initialState: any) => {
   const head = Helmet.rewind();
 
   // Import Manifests
@@ -131,7 +124,7 @@ app.use((req, res, next) => {
       .status(200)
       .end(renderFullPage(initialView, finalState));
   })
-  .catch((error) => next(error));
+  .catch((error: Error) => next(error));
 
   // matchRoutes(routes, req.url, (err, redirectLocation, renderProps) => {
   //   if (err) {
@@ -168,7 +161,7 @@ app.use((req, res, next) => {
 });
 
 // start app
-app.listen(serverConfig.port, (error) => {
+app.listen(serverConfig.port, (error: Error) => {
   if (!error) {
     console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
   }

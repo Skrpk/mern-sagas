@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 // Import Style
-const styles = require('./App.css');
+import styles from './App.css';
 import { State } from '../../reducers';
 
 // Import Components
@@ -15,6 +15,11 @@ import Footer from './components/Footer/Footer';
 import { toggleAddPost } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
 
+declare namespace JSX {
+  interface Element { }
+  interface IntrinsicElements { div: any; }
+}
+
 interface AppProps {
   dispatch(action: object): void;
   route: any;
@@ -24,6 +29,8 @@ interface AppProps {
 interface AppState {
   isMounted: boolean;
 }
+
+const windowAny:any = window ? window : {};
 
 export class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -42,7 +49,7 @@ export class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension &&
+        {this.state.isMounted && !windowAny.devToolsExtension &&
         process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet

@@ -2,7 +2,9 @@ import { enabledLanguages, localizationData } from '../../../Intl/setup';
 import { SWITCH_LANGUAGE } from './IntlActions';
 import { Intl } from './IntlModel';
 
-const initLocale = global.navigator && global.navigator.language || 'en';
+const globalAny:any = global;
+
+const initLocale = globalAny.navigator && globalAny.navigator.language || 'en';
 const createIntialState = (): Intl => ({
   enabledLanguages,
   locale: initLocale,

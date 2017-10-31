@@ -9,6 +9,7 @@ import rootReducer, { State } from './reducers';
 import rootSaga from './sagas';
 
 export function configureStore(initialState = {}) {
+  const windowAny:any = window;
   const sagaMiddleware = createSagaMiddleware();
   // Middleware and store enhancers
   const enhancers = [
@@ -17,7 +18,7 @@ export function configureStore(initialState = {}) {
 
   if (process.env.CLIENT && process.env.NODE_ENV === 'development') {
     // Enable DevTools only when rendering on client and during development.
-    enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
+    enhancers.push(windowAny.devToolsExtension ? windowAny.devToolsExtension() : DevTools.instrument());
   }
 
   const store: Store<{}> = createStore(rootReducer, initialState, compose(...enhancers));

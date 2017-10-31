@@ -9,10 +9,10 @@ import { App } from './App';
 import { configureStore } from './store';
 
 declare global {
-    interface Window {
-      __INITIAL_STATE__: any;
-      devToolsExtension: any;
-    }
+  interface Window {
+    __INITIAL_STATE__: any;
+    devToolsExtension: any;
+  }
 }
 
 // Initialize store

@@ -3,9 +3,13 @@ import { FormattedMessage } from 'react-intl';
 
 // Import Style
 const styles = require('./Footer.css');
-
 // Import Images
-const bg = require('../../header-bk.png');
+let bg:any;
+if (global) {
+  bg = '../../header-bk.png';  
+} else {
+  bg = require('../../header-bk.png');  
+}
 
 export const Footer: React.SFC<any> = () => {
   return (

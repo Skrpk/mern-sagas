@@ -3,8 +3,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 // Import Style
-import styles from './App.css';
+const styles = require('./App.css');
 import { State } from '../../reducers';
+
+const windowAny: any = global ? {} : window;
 
 // Import Components
 import { Helmet } from 'react-helmet';
@@ -29,8 +31,6 @@ interface AppProps {
 interface AppState {
   isMounted: boolean;
 }
-
-const windowAny:any = window ? window : {};
 
 export class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {

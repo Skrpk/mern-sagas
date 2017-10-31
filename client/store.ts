@@ -9,7 +9,7 @@ import rootReducer, { State } from './reducers';
 import rootSaga from './sagas';
 
 export function configureStore(initialState = {}) {
-  const windowAny:any = window;
+  const windowAny:any = global ? {} : window;
   const sagaMiddleware = createSagaMiddleware();
   // Middleware and store enhancers
   const enhancers = [

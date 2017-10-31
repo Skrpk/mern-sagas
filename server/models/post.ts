@@ -1,5 +1,14 @@
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+
+interface PostInterface extends mongoose.Document {
+  name: string;
+  title: string;
+  content: string;
+  slug: string;
+  cuid: string;
+  dateAdded: Date;
+};
 
 const postSchema = new Schema({
   name: { type: 'String', required: true },
@@ -10,4 +19,4 @@ const postSchema = new Schema({
   dateAdded: { type: 'Date', default: Date.now, required: true },
 });
 
-export default mongoose.model('Post', postSchema);
+export default mongoose.model<PostInterface>('Post', postSchema);

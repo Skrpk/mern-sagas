@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as PostController from '../controllers/post.controller';
-const router = new Router();
+const router = Router();
 
 // Get all Posts
 router.route('/posts').get(PostController.getPosts);

@@ -1,7 +1,8 @@
 import Post from '../models/post';
-import cuid from 'cuid';
-import slug from 'limax';
-import sanitizeHtml from 'sanitize-html';
+import * as cuid from 'cuid';
+import * as sanitizeHtml from 'sanitize-html';
+import { Request, Response } from 'express';
+const slug = require('limax');
 
 /**
  * Get all posts
@@ -9,7 +10,7 @@ import sanitizeHtml from 'sanitize-html';
  * @param res
  * @returns void
  */
-export function getPosts(req, res) {
+export function getPosts(req: Request, res: Response) {
   Post.find().sort('-dateAdded').exec((err, posts) => {
     if (err) {
       res.status(500).send(err);
@@ -24,7 +25,7 @@ export function getPosts(req, res) {
  * @param res
  * @returns void
  */
-export function addPost(req, res) {
+export function addPost(req: Request, res: Response) {
   if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
     res.status(403).end();
   }
@@ -52,7 +53,7 @@ export function addPost(req, res) {
  * @param res
  * @returns void
  */
-export function getPost(req, res) {
+export function getPost(req: Request, res: Response) {
   Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
     if (err) {
       res.status(500).send(err);
@@ -68,7 +69,7 @@ export function getPost(req, res) {
  * @param res
  * @returns void
  */
-export function deletePost(req, res) {
+export function deletePost(req: Request, res: Response) {
   Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
     if (err) {
       res.status(500).send(err);

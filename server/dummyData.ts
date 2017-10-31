@@ -1,7 +1,7 @@
 import Post from './models/post';
 
 export default function () {
-  Post.count().exec((err, count) => {
+  Post.count(null, null).exec((err: Error, count: number) => {
     if (count > 0) {
       return;
     }

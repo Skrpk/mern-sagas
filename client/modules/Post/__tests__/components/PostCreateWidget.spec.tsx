@@ -1,16 +1,17 @@
-import React from 'react';
-import test from 'ava';
+import * as React from 'react';
 import sinon from 'sinon';
 import { FormattedMessage } from 'react-intl';
 import { PostCreateWidget } from '../../components/PostCreateWidget/PostCreateWidget';
 import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
+const test = require('ava');
 
 const props = {
   addPost: () => {},
   showAddPost: true,
+  intl: {},
 };
 
-test('renders properly', t => {
+test('renders properly', (t: any) => {
   const wrapper = shallowWithIntl(
     <PostCreateWidget {...props} />
   );
@@ -22,7 +23,7 @@ test('renders properly', t => {
   t.is(wrapper.find('textarea').length, 1);
 });
 
-test('hide when showAddPost is false', t => {
+test('hide when showAddPost is false', (t: any) => {
   const wrapper = mountWithIntl(
     <PostCreateWidget {...props} />
   );
@@ -31,7 +32,7 @@ test('hide when showAddPost is false', t => {
   t.falsy(wrapper.hasClass('appear'));
 });
 
-test('has correct props', t => {
+test('has correct props', (t: any) => {
   const wrapper = mountWithIntl(
     <PostCreateWidget {...props} />
   );
@@ -40,10 +41,10 @@ test('has correct props', t => {
   t.is(wrapper.prop('showAddPost'), props.showAddPost);
 });
 
-test('calls addPost', t => {
+test('calls addPost', (t: any) => {
   const addPost = sinon.spy();
   const wrapper = mountWithIntl(
-    <PostCreateWidget addPost={addPost} showAddPost />
+    <PostCreateWidget addPost={addPost} showAddPost intl={{}} />
   );
 
   wrapper.ref('name').value = 'David';
@@ -55,10 +56,10 @@ test('calls addPost', t => {
   t.truthy(addPost.calledWith('David', 'Some Title', 'Bla Bla Bla'));
 });
 
-test('empty form doesn\'t call addPost', t => {
+test('empty form doesn\'t call addPost', (t: any) => {
   const addPost = sinon.spy();
   const wrapper = mountWithIntl(
-    <PostCreateWidget addPost={addPost} showAddPost />
+    <PostCreateWidget addPost={addPost} showAddPost intl={{}} />
   );
 
   wrapper.find('a').first().simulate('click');

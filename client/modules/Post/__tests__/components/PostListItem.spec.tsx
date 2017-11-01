@@ -1,9 +1,11 @@
 import React from 'react';
-import test from 'ava';
 import sinon from 'sinon';
+const test = require('ava');
+
 import PostListItem from '../../components/PostListItem/PostListItem';
 import { BrowserRouter } from 'react-router-dom';
 import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
+
 
 const post = { name: 'Prashant', title: 'Hello Mern', slug: 'hello-mern', cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" };
 const props = {
@@ -13,9 +15,10 @@ const props = {
     location: {},
   },
   },
+  onClick: () => {},
 };
 
-test('renders properly', t => {
+test('renders properly', (t: any) => {
   const wrapper = shallowWithIntl(
     <PostListItem {...props} />
   );
@@ -26,7 +29,7 @@ test('renders properly', t => {
   t.is(wrapper.find('.post-desc').first().text(), post.content);
 });
 
-test('has correct props', t => {
+test('has correct props', (t: any) => {
   const wrapper = mountWithIntl(
     <BrowserRouter {...props}>
       <PostListItem {...props} />
@@ -37,7 +40,7 @@ test('has correct props', t => {
   t.is(wrapper.prop('onDelete'), props.onDelete);
 });
 
-test('calls onDelete', t => {
+test('calls onDelete', (t: any) => {
   const onDelete = sinon.spy();
   const wrapper = shallowWithIntl(
     <PostListItem post={post} onDelete={onDelete} />

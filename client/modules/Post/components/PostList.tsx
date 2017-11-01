@@ -7,6 +7,7 @@ import { Post } from '../PostModel';
 interface Props {
   posts: Post[];
   handleDeletePost(post: Post): void;
+  handleShowPost?(): void;
 }
 
 // tslint:disable

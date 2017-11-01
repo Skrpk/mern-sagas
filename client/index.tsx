@@ -3,7 +3,7 @@
  */
 import 'regenerator-runtime/runtime';
 import * as React from 'react';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { App } from './App';
 import { configureStore } from './store';
@@ -19,7 +19,7 @@ declare global {
 const store = configureStore(window.__INITIAL_STATE__);
 const mountApp = document.getElementById('root');
 
-render(
+hydrate(
   <AppContainer>
     <App store={store} />
   </AppContainer>,
@@ -32,7 +32,7 @@ if (module.hot) {
     // If you use Webpack 2 in ES modules mode, you can
     // use <App /> here rather than require() a <NextApp />.
     const NextApp = require('./App'); // eslint-disable-line global-require
-    render(
+    hydrate(
       <AppContainer>
         <NextApp store={store} />
       </AppContainer>,

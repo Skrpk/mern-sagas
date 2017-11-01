@@ -1,8 +1,8 @@
 import React from 'react';
-import test from 'ava';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import PostList from '../../components/PostList';
+const test = require('ava');
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -11,7 +11,7 @@ const posts = [
   { name: 'Mayank', title: 'Hi Mern', slug: 'hi-mern', cuid: 'f34gb2bh24b24b3', content: "All dogs bark 'mern!'" },
 ];
 
-test('renders the list', t => {
+test('renders the list', (t: any) => {
   const wrapper = shallow(
     <PostList posts={posts} handleShowPost={() => {}} handleDeletePost={() => {}} />
   );

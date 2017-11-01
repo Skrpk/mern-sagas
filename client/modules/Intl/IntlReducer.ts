@@ -6,7 +6,7 @@ const globalAny:any = global;
 
 const initLocale = globalAny.navigator && globalAny.navigator.language || 'en';
 const createIntialState = (): Intl => ({
-  enabledLanguages,
+  enabledLanguages: enabledLanguages,
   locale: initLocale,
   ...(localizationData[initLocale] || {}),
 });

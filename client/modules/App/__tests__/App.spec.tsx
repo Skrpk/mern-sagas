@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import test from 'ava';
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+const test = require('ava');
+
 import { App } from '../App';
-import styles from '../App.css';
 import { intlShape } from 'react-intl';
 import { intl } from '../../../util/react-intl-test-helper';
 import { toggleAddPost } from '../AppActions';
 import routes from '../../../routes';
 import { configureStore } from '../../../store';
+const styles = require('../App.css');
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -27,20 +28,20 @@ const props = {
   route,
 };
 
-test('renders properly', t => {
+test('renders properly', (t: any) => {
   const wrapper = shallow(
     <App {...props} />
   );
-
+  const instance = wrapper.instance() as App;
 
   t.is(wrapper.find('Header').length, 1);
   t.is(wrapper.find('Footer').length, 1);
-  t.is(wrapper.find('Header').prop('toggleAddPost'), wrapper.instance().toggleAddPostSection);
+  t.is(wrapper.find('Header').prop('toggleAddPost'), instance.toggleAddPostSection);
   t.truthy(wrapper.find('Header + main').hasClass(styles.container));
   t.truthy(wrapper.find('Header + main').children(), children);
 });
 
-test('calls componentDidMount', t => {
+test('calls componentDidMount', (t: any) => {
   sinon.spy(App.prototype, 'componentDidMount');
   mount(
     <MemoryRouter>
@@ -69,16 +70,18 @@ test('calls componentDidMount', t => {
     },
   );
 
-  t.truthy(App.prototype.componentDidMount.calledTwice);
-  App.prototype.componentDidMount.restore();
+  const componentDidMountAny: any = App.prototype.componentDidMount;
+  t.truthy(componentDidMountAny.calledTwice);
+  componentDidMountAny.restore();
 });
 
-test('calling toggleAddPostSection dispatches toggleAddPost', t => {
+test('calling toggleAddPostSection dispatches toggleAddPost', (t: any) => {
   const wrapper = shallow(
     <App {...props} />
   );
+  const instance = wrapper.instance() as App;
 
-  wrapper.instance().toggleAddPostSection();
+  instance.toggleAddPostSection();
   t.truthy(dispatch.calledOnce);
   t.truthy(dispatch.calledWith(toggleAddPost()));
 });

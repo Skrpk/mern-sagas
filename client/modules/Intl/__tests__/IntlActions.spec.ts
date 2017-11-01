@@ -1,5 +1,5 @@
-import test from 'ava';
-import { actionTest } from 'redux-ava';
+const test = require('ava');
+const actionTest = require('redux-ava').actionTest;
 
 import {
   SWITCH_LANGUAGE,

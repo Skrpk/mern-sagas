@@ -4,6 +4,7 @@ export interface Post {
   content: string;
   slug: string;
   cuid: string;
+  _id?: any;
 }
 
 export interface PostReducerInit {

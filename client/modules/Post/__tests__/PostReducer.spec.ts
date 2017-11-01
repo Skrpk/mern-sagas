@@ -1,7 +1,8 @@
-import test from 'ava';
-import { reducerTest } from 'redux-ava';
 import postReducer, { getPost, getPosts } from '../PostReducer';
 import { addPost, deletePost, addPosts } from '../PostActions';
+const test = require('ava');
+const reducerTest = require('redux-ava').reducerTest;
+
 
 test('action for ADD_POST is working', reducerTest(
   postReducer,
@@ -61,7 +62,7 @@ test('action for ADD_POSTS is working', reducerTest(
   }] },
 ));
 
-test('getPosts selector', t => {
+test('getPosts selector', (t: any) => {
   t.deepEqual(
     getPosts({
       posts: { data: ['foo'] },
@@ -70,7 +71,7 @@ test('getPosts selector', t => {
   );
 });
 
-test('getPost selector', t => {
+test('getPost selector', (t: any) => {
   t.deepEqual(
     getPost({
       posts: { data: [{ cuid: '123' }] },

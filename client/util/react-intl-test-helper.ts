@@ -32,8 +32,9 @@ export const shallowWithIntl = (node: object) => {
 };
 
 export const mountWithIntl = (node: object) => {
-  return mount(nodeWithIntlProp(node), {
+  const mountedComponent: any = mount(nodeWithIntlProp(node), {
     context: { intl },
     childContextTypes: { intl: intlShape },
   });
+  return mountedComponent;
 };

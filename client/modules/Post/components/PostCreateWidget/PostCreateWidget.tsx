@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
+import { intlShape, injectIntl, FormattedMessage, InjectedIntlProps } from 'react-intl';
 
 // Import Style
 const styles = require('./PostCreateWidget.css');
 
 interface Props {
   addPost(name: string, title: string, content: string): void;
-  showAddPost: boolean;
-  intl: any;
+  showAddPost?: boolean;
+  intl?: any;
 }
 
-export class PostCreateWidget extends React.Component<Props, {}> {
+export class PostCreateWidget extends React.Component<Props & InjectedIntlProps, {}> {
   private nameInput: HTMLInputElement;
   private titleInput: HTMLInputElement;
   private contentInput: HTMLTextAreaElement;

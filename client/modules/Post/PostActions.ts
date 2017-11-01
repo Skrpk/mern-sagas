@@ -17,7 +17,7 @@ export function addPost(post: Post) {
   };
 }
 
-export function addPosts(posts: PostReducerInit[]) {
+export function addPosts(posts: Post[]) {
   return {
     type: ADD_POSTS,
     posts,

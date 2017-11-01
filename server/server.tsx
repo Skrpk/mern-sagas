@@ -1,4 +1,5 @@
 import * as Express from 'express';
+import { Request, Response } from 'express';
 import * as compression from 'compression';
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
@@ -7,12 +8,19 @@ import IntlWrapper from '../client/modules/Intl/IntlWrapper';
 
 // Webpack Requirements
 import * as webpack from 'webpack';
-import * as config from '../webpack.config.dev';
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
+const config = require('../webpack.config.dev');
 
 // Initialize the Express App
 const app = Express();
+
+// Run Webpack dev server in development mode
+if (process.env.NODE_ENV === 'development') {
+  const compiler: any = webpack(config);
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
+}
 
 // React And Redux Setup
 import { configureStore } from '../client/store';
@@ -97,10 +105,10 @@ const renderFullPage = (html: string, initialState: any) => {
 // };
 
 // Server Side Rendering based on routes matched by React-router.
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: Function) => {
   const store = configureStore();
   const branch = matchRoutes(routes, req.url);
-
+  debugger
   return fetchComponentData(
     store,
     branch.map(elem => elem.route.component),

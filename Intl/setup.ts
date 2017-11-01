@@ -6,7 +6,7 @@ export const enabledLanguages = [
 
 // this object will have language-specific data added to it which will be placed in the state when that language is active
 // if localization data get to big, stop importing in all languages and switch to using API requests to load upon switching languages
-export const localizationData = {};
+export const localizationData:any = {};
 
 // here you bring in 'intl' browser polyfill and language-specific polyfills
 // (needed as safari doesn't have native intl: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
@@ -15,8 +15,8 @@ export const localizationData = {};
 import { addLocaleData } from 'react-intl';
 
 // need Intl polyfill, Intl not supported in Safari
-import Intl from 'intl';
-import areIntlLocalesSupported from 'intl-locales-supported';
+import * as Intl from 'intl';
+const areIntlLocalesSupported = require('intl-locales-supported');
 
 if (global.Intl) {
   // Determine if the built-in `Intl` has the locale data we need.
@@ -33,8 +33,8 @@ if (global.Intl) {
 
 // use this to allow nested messages, taken from docs:
 // https://github.com/yahoo/react-intl/wiki/Upgrade-Guide#flatten-messages-object
-function flattenMessages(nestedMessages = {}, prefix = '') {
-  return Object.keys(nestedMessages).reduce((messages, key) => {
+function flattenMessages(nestedMessages: any = {}, prefix = '') {
+  return Object.keys(nestedMessages).reduce((messages: any, key) => {
     const value = nestedMessages[key];
     const prefixedKey = prefix ? `${prefix}.${key}` : key;
 

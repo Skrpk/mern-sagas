@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+import { Document, Schema } from 'mongoose';
 
-interface PostInterface extends mongoose.Document {
+interface PostInterface extends Document {
   name: string;
   title: string;
   content: string;

@@ -8,6 +8,13 @@ import DevTools from './modules/App/components/DevTools';
 import rootReducer, { State } from './reducers';
 import rootSaga from './sagas';
 
+declare global {
+  interface Window {
+    __INITIAL_STATE__: any;
+    devToolsExtension: any;
+  }
+}
+
 export function configureStore(initialState = {}) {
   const windowAny:any = global ? {} : window;
   const sagaMiddleware = createSagaMiddleware();
@@ -18,7 +25,7 @@ export function configureStore(initialState = {}) {
 
   if (process.env.CLIENT && process.env.NODE_ENV === 'development') {
     // Enable DevTools only when rendering on client and during development.
-    enhancers.push(windowAny.devToolsExtension ? windowAny.devToolsExtension() : DevTools.instrument());
+    enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
   }
 
   const store: Store<{}> = createStore(rootReducer, initialState, compose(...enhancers));

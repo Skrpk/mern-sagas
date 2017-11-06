@@ -1,4 +1,5 @@
 import * as Express from 'express';
+// tslint:disable-next-line
 import { Request, Response } from 'express';
 import * as compression from 'compression';
 import * as mongoose from 'mongoose';

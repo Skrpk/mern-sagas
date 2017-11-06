@@ -39,9 +39,9 @@ function flattenMessages(nestedMessages: any = {}, prefix = '') {
     const prefixedKey = prefix ? `${prefix}.${key}` : key;
 
     if (typeof value === 'string') {
-      messages[prefixedKey] = value; // eslint-disable-line no-param-reassign
+      messages[prefixedKey] = value;
     } else {
-      Object.assign(messages, flattenMessages(value, prefixedKey));
+      (<any>Object).assign(messages, flattenMessages(value, prefixedKey));
     }
 
     return messages;

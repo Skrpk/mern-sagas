@@ -24,9 +24,9 @@ const PostListItem: React.SFC<Props> = (props) => {
           {props.post.title}
         </Link>
       </h3>
-      <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.name}</p>
-      <p className={styles['post-desc']}>{props.post.content}</p>
-      <p className={styles['post-action']}>
+      <p className={styles['author-name']} id="authorName"><FormattedMessage id="by" /> {props.post.name}</p>
+      <p className={styles['post-desc']} id="postDesc">{props.post.content}</p>
+      <p className={styles['post-action']} id="postActions">
         <a href="#" onClick={props.onDelete}><FormattedMessage id="deletePost" /></a>
       </p>
       <hr className={styles.divider} />

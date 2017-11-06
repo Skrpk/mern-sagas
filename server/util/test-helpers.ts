@@ -1,13 +1,10 @@
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 const mockgoose = require('mockgoose');
 
-export function connectDB(t: any, done: Function) {
+export async function connectDB(t: any, done: Function) {
   mockgoose(mongoose).then(() => {
     const connectionPromise: any = mongoose.createConnection('mongodb://localhost:27017/mern-test');
-    connectionPromise.then((err: Error) => {
-      if (err) t.fail('Unable to connect to test database');
-      done();
-    });
+    done();
   });
 }
 

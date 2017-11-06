@@ -12,6 +12,9 @@ interface Props {
 
 // tslint:disable
 const PostList:React.SFC<Props> = (props) => {
+  if (!props.posts) {
+    return <div></div>;
+  }
   return (
     <div className="listView">
       {

@@ -1,5 +1,5 @@
-import React from 'react';
-import sinon from 'sinon';
+import * as React from 'react';
+import * as sinon from 'sinon';
 const test = require('ava');
 
 import PostListItem from '../../components/PostListItem/PostListItem';
@@ -23,10 +23,9 @@ test('renders properly', (t: any) => {
     <PostListItem {...props} />
   );
 
-  t.truthy(wrapper.hasClass('single-post'));
   t.is(wrapper.find('Link').first().prop('children'), post.title);
-  t.regex(wrapper.find('.author-name').first().text(), new RegExp(post.name));
-  t.is(wrapper.find('.post-desc').first().text(), post.content);
+  t.regex(wrapper.find('#authorName').first().text(), new RegExp(post.name));
+  t.is(wrapper.find('#postDesc').first().text(), post.content);
 });
 
 test('has correct props', (t: any) => {
@@ -46,6 +45,6 @@ test('calls onDelete', (t: any) => {
     <PostListItem post={post} onDelete={onDelete} />
   );
 
-  wrapper.find('.post-action > a').first().simulate('click');
+  wrapper.find('#postActions > a').first().simulate('click');
   t.truthy(onDelete.calledOnce);
 });

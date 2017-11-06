@@ -4,7 +4,8 @@
     "react-hot-loader/babel",
     ["css-modules-transform", {
       "generateScopedName": "[name]__[local]__[hash:base64:5]",
-      "extensions": [".css"]
+      "extensions": [".css"],
+      "camelCase": true
   }] 
   ],
   "env": {

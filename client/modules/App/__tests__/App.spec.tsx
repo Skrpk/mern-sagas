@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import * as sinon from 'sinon';
-import Enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 const test = require('ava');
@@ -23,27 +23,26 @@ const dispatch = sinon.spy();
 const route = { routes };
 const props = {
   children,
+  route,
   dispatch,
   intl: intlProp,
-  route,
 };
 
 test('renders properly', (t: any) => {
-  const wrapper = shallow(
-    <App {...props} />
+  const wrapper = Enzyme.shallow(
+    <App {...props} />,
   );
   const instance = wrapper.instance() as App;
 
   t.is(wrapper.find('Header').length, 1);
   t.is(wrapper.find('Footer').length, 1);
   t.is(wrapper.find('Header').prop('toggleAddPost'), instance.toggleAddPostSection);
-  t.truthy(wrapper.find('Header + main').hasClass(styles.container));
   t.truthy(wrapper.find('Header + main').children(), children);
 });
 
 test('calls componentDidMount', (t: any) => {
   sinon.spy(App.prototype, 'componentDidMount');
-  mount(
+  Enzyme.mount(
     <MemoryRouter>
       <Provider store={configureStore()}>
         <App {...props} />
@@ -76,8 +75,8 @@ test('calls componentDidMount', (t: any) => {
 });
 
 test('calling toggleAddPostSection dispatches toggleAddPost', (t: any) => {
-  const wrapper = shallow(
-    <App {...props} />
+  const wrapper = Enzyme.shallow(
+    <App {...props} />,
   );
   const instance = wrapper.instance() as App;
 

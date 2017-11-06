@@ -1,7 +1,7 @@
 import * as React from 'react';
-import sinon from 'sinon';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import * as sinon from 'sinon';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import { FormattedMessage } from 'react-intl';
 import { Header } from '../../components/Header/Header';
 import { intl } from '../../../../util/react-intl-test-helper';
@@ -14,7 +14,7 @@ test('renders the header properly', (t: any) => {
   const router = {
     isActive: sinon.stub().returns(true),
   };
-  const wrapper = shallow(
+  const wrapper = Enzyme.shallow(
     <Header switchLanguage={() => {}} intl={intlProp} toggleAddPost={() => {}} />,
     {
       context: {
@@ -32,7 +32,7 @@ test('doesn\'t add post in pages other than home', (t: any) => {
   const router = {
     isActive: sinon.stub().returns(false),
   };
-  const wrapper = shallow(
+  const wrapper = Enzyme.shallow(
     <Header switchLanguage={() => {}} intl={intlProp} toggleAddPost={() => {}} />,
     {
       context: {
@@ -50,7 +50,7 @@ test('toggleAddPost called properly', (t: any) => {
     isActive: sinon.stub().returns(true),
   };
   const toggleAddPost = sinon.spy();
-  const wrapper = shallow(
+  const wrapper = Enzyme.shallow(
     <Header switchLanguage={() => {}} intl={intlProp} toggleAddPost={toggleAddPost} />,
     {
       context: {

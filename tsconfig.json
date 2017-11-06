@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
     "outDir": "./dist",
     "sourceMap": true,
     "noImplicitAny": true,
@@ -14,6 +15,7 @@
     "./"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

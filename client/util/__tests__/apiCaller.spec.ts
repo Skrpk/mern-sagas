@@ -1,5 +1,5 @@
 import callApi, { API_URL } from '../apiCaller';
-import nock from 'nock';
+import * as nock from 'nock';
 const test = require('ava');
 
 test('method defaults to GET', (t: any) => {

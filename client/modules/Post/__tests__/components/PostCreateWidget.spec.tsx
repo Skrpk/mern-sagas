@@ -1,5 +1,5 @@
 import * as React from 'react';
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { FormattedMessage } from 'react-intl';
 import { PostCreateWidget } from '../../components/PostCreateWidget/PostCreateWidget';
 import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
@@ -13,11 +13,9 @@ const props = {
 
 test('renders properly', (t: any) => {
   const wrapper = shallowWithIntl(
-    <PostCreateWidget {...props} />
+    <PostCreateWidget {...props} />,
   );
 
-  t.truthy(wrapper.hasClass('form'));
-  t.truthy(wrapper.hasClass('appear'));
   t.truthy(wrapper.find('h2').first().containsMatchingElement(<FormattedMessage id="createNewPost" />));
   t.is(wrapper.find('input').length, 2);
   t.is(wrapper.find('textarea').length, 1);
@@ -25,7 +23,7 @@ test('renders properly', (t: any) => {
 
 test('hide when showAddPost is false', (t: any) => {
   const wrapper = mountWithIntl(
-    <PostCreateWidget {...props} />
+    <PostCreateWidget {...props} />,
   );
 
   wrapper.setProps({ showAddPost: false });
@@ -34,7 +32,7 @@ test('hide when showAddPost is false', (t: any) => {
 
 test('has correct props', (t: any) => {
   const wrapper = mountWithIntl(
-    <PostCreateWidget {...props} />
+    <PostCreateWidget {...props} />,
   );
 
   t.is(wrapper.prop('addPost'), props.addPost);
@@ -47,9 +45,7 @@ test('calls addPost', (t: any) => {
     <PostCreateWidget addPost={addPost} showAddPost intl={{}} />
   );
 
-  wrapper.ref('name').value = 'David';
-  wrapper.ref('title').value = 'Some Title';
-  wrapper.ref('content').value = 'Bla Bla Bla';
+  wrapper.instance().setInputData('David', 'Some Title', 'Bla Bla Bla');
 
   wrapper.find('a').first().simulate('click');
   t.truthy(addPost.calledOnce);
@@ -59,7 +55,7 @@ test('calls addPost', (t: any) => {
 test('empty form doesn\'t call addPost', (t: any) => {
   const addPost = sinon.spy();
   const wrapper = mountWithIntl(
-    <PostCreateWidget addPost={addPost} showAddPost intl={{}} />
+    <PostCreateWidget addPost={addPost} showAddPost intl={{}} />,
   );
 
   wrapper.find('a').first().simulate('click');

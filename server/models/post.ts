@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
-import { Document, Schema } from 'mongoose';
+// tslint:disable-next-line
+import { Document, Schema} from 'mongoose';
 
 interface PostInterface extends Document {
   name: string;
@@ -8,7 +9,7 @@ interface PostInterface extends Document {
   slug: string;
   cuid: string;
   dateAdded: Date;
-};
+}
 
 const postSchema = new Schema({
   name: { type: 'String', required: true },

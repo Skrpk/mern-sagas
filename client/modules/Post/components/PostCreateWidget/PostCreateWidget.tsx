@@ -23,6 +23,12 @@ export class PostCreateWidget extends React.Component<Props & InjectedIntlProps,
     }
   }
 
+  setInputData = (name: string, title: string, content: string) => {
+    this.nameInput.value = name;
+    this.titleInput.value = title;
+    this.contentInput.value = content;
+  }
+
   render() {
     const cls = `${styles.form} ${(this.props.showAddPost ? styles.appear : '')}`;
     return (
